@@ -57,4 +57,115 @@
         android:progressTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/BgImg"
         app:layout_constraintTop_toTopOf="@+id/BgImg" />
+
+    <ImageButton
+        android:id="@+id/Card_1"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintStart_toStartOf="@+id/BgImg"
+        app:srcCompat="@drawable/card_1"
+        tools:srcCompat="@drawable/card_1" />
+
+    <ImageButton
+        android:id="@+id/Card_2"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/Card_1"
+        app:srcCompat="@drawable/card_2"
+        tools:srcCompat="@drawable/card_2" />
+
+    <ImageButton
+        android:id="@+id/Card_3"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/Card_2"
+        app:srcCompat="@drawable/card_3"
+        tools:srcCompat="@drawable/card_3" />
+
+    <ImageButton
+        android:id="@+id/Card_4"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/Card_3"
+        app:srcCompat="@drawable/card_4"
+        tools:srcCompat="@drawable/card_4" />
+
+    <ImageButton
+        android:id="@+id/Card_5"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/Card_4"
+        app:srcCompat="@drawable/card_5"
+        tools:srcCompat="@drawable/card_5" />
+
+    <ImageButton
+        android:id="@+id/Card_6"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toStartOf="@+id/Card_7"
+        app:srcCompat="@drawable/card_6"
+        tools:srcCompat="@drawable/card_6" />
+
+    <ImageButton
+        android:id="@+id/Card_7"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toStartOf="@+id/Card_8"
+        app:srcCompat="@drawable/card_7"
+        tools:srcCompat="@drawable/card_7" />
+
+    <ImageButton
+        android:id="@+id/Card_8"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toStartOf="@+id/Card_9"
+        app:srcCompat="@drawable/card_8"
+        tools:srcCompat="@drawable/card_8" />
+
+    <ImageButton
+        android:id="@+id/Card_9"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toStartOf="@+id/Card_10"
+        app:srcCompat="@drawable/card_9"
+        tools:srcCompat="@drawable/card_9" />
+
+    <ImageButton
+        android:id="@+id/Card_10"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toEndOf="@+id/BgImg"
+        app:srcCompat="@drawable/card_0"
+        tools:srcCompat="@drawable/card_0" />
+
 </android.support.constraint.ConstraintLayout>
