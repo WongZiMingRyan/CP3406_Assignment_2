@@ -13,59 +13,65 @@
         android:contentDescription="Background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.621"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/bg_ring1"
         tools:srcCompat="@drawable/bg_ring1" />
 
     <ImageView
         android:id="@+id/CenterImg"
-        android:layout_width="190dp"
-        android:layout_height="125dp"
+        android:layout_width="172dp"
+        android:layout_height="115dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="141dp"
         android:contentDescription="Center screen"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/BgImg"
         app:layout_constraintTop_toTopOf="@+id/BgImg"
+        app:srcCompat="@drawable/boxer_neutral"
         tools:srcCompat="@drawable/boxer_neutral" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="27dp"
         android:layout_marginStart="85dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:progressDrawable="@drawable/ic_launcher_background"
-        android:progressTint="@color/colorAccent"
+        android:progressTint="@color/boxerBlue"
+        app:layout_constraintEnd_toStartOf="@+id/CenterImg"
         app:layout_constraintStart_toStartOf="@+id/BgImg"
         app:layout_constraintTop_toTopOf="@+id/BgImg" />
 
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="27dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="85dp"
         android:progressDrawable="@drawable/ic_launcher_background"
-        android:progressTint="@color/colorAccent"
+        android:progressTint="@color/boxerRed"
         app:layout_constraintEnd_toEndOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/CenterImg"
         app:layout_constraintTop_toTopOf="@+id/BgImg" />
 
     <ImageButton
         android:id="@+id/Card_1"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintStart_toStartOf="@+id/BgImg"
+        app:layout_constraintEnd_toStartOf="@+id/Card_2"
         app:srcCompat="@drawable/card_1"
         tools:srcCompat="@drawable/card_1" />
 
@@ -73,10 +79,10 @@
         android:id="@+id/Card_2"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintStart_toEndOf="@+id/Card_1"
+        app:layout_constraintEnd_toStartOf="@+id/Card_3"
         app:srcCompat="@drawable/card_2"
         tools:srcCompat="@drawable/card_2" />
 
@@ -84,10 +90,10 @@
         android:id="@+id/Card_3"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintStart_toEndOf="@+id/Card_2"
+        app:layout_constraintEnd_toStartOf="@+id/Card_4"
         app:srcCompat="@drawable/card_3"
         tools:srcCompat="@drawable/card_3" />
 
@@ -95,10 +101,10 @@
         android:id="@+id/Card_4"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintStart_toEndOf="@+id/Card_3"
+        app:layout_constraintEnd_toStartOf="@+id/Card_5"
         app:srcCompat="@drawable/card_4"
         tools:srcCompat="@drawable/card_4" />
 
@@ -106,10 +112,9 @@
         android:id="@+id/Card_5"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintStart_toEndOf="@+id/Card_4"
+        app:layout_constraintEnd_toStartOf="@+id/button"
         app:srcCompat="@drawable/card_5"
         tools:srcCompat="@drawable/card_5" />
 
@@ -117,10 +122,9 @@
         android:id="@+id/Card_6"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintEnd_toStartOf="@+id/Card_7"
+        app:layout_constraintStart_toEndOf="@+id/button"
         app:srcCompat="@drawable/card_6"
         tools:srcCompat="@drawable/card_6" />
 
@@ -128,10 +132,10 @@
         android:id="@+id/Card_7"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintEnd_toStartOf="@+id/Card_8"
+        app:layout_constraintStart_toEndOf="@+id/Card_6"
         app:srcCompat="@drawable/card_7"
         tools:srcCompat="@drawable/card_7" />
 
@@ -139,10 +143,10 @@
         android:id="@+id/Card_8"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintEnd_toStartOf="@+id/Card_9"
+        app:layout_constraintStart_toEndOf="@+id/Card_7"
         app:srcCompat="@drawable/card_8"
         tools:srcCompat="@drawable/card_8" />
 
@@ -150,10 +154,10 @@
         android:id="@+id/Card_9"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintEnd_toStartOf="@+id/Card_10"
+        app:layout_constraintStart_toEndOf="@+id/Card_8"
         app:srcCompat="@drawable/card_9"
         tools:srcCompat="@drawable/card_9" />
 
@@ -161,11 +165,47 @@
         android:id="@+id/Card_10"
         android:layout_width="30dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/BgImg"
-        app:layout_constraintEnd_toEndOf="@+id/BgImg"
+        app:layout_constraintStart_toEndOf="@+id/Card_9"
         app:srcCompat="@drawable/card_0"
         tools:srcCompat="@drawable/card_0" />
+
+    <TextView
+        android:id="@+id/questionView"
+        android:layout_width="510dp"
+        android:layout_height="35dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="READY"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/CenterImg"
+        app:layout_constraintStart_toStartOf="@+id/CenterImg"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+
+    <TextView
+        android:id="@+id/answerView"
+        android:layout_width="510dp"
+        android:layout_height="35dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="_____"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/CenterImg"
+        app:layout_constraintStart_toStartOf="@+id/CenterImg"
+        app:layout_constraintTop_toBottomOf="@+id/questionView" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginEnd="73dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/BgImg"
+        app:layout_constraintEnd_toEndOf="@+id/CenterImg"
+        app:layout_constraintStart_toStartOf="@+id/CenterImg" />
 
 </android.support.constraint.ConstraintLayout>
