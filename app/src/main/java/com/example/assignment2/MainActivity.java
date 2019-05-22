@@ -13,10 +13,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MainActivity extends AppCompatActivity {
 
     //Defining UI elements
-    private ImageView bgImage, centerImage;
-    private TextView question, answer;
-    private ImageButton card1, card2, card3, card4, card5;
-    private ImageButton card6, card7, card8, card9, card10;
+    private ImageView ImgViewBG, ImgViewCenter;
+    private TextView TxtViewQN, TxtViewANS;
+    private ImageButton BtnCard1, BtnCard2, BtnCard3, BtnCard4, BtnCard5;
+    private ImageButton BtnCard6, BtnCard7, BtnCard8, BtnCard9, BtnCard10;
+    //Defining Values that need to be remembered
+    private String ValQN = "";
+    private int ValANS = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,22 +27,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Identifying image views
-        bgImage = findViewById(R.id.BgImg);
-        centerImage = findViewById(R.id.CenterImg);
+        ImgViewBG = findViewById(R.id.BgImg);
+        ImgViewCenter = findViewById(R.id.CenterImg);
         //Identifying text view
-        question = findViewById(R.id.questionView);
-        answer = findViewById(R.id.answerView);
+        TxtViewQN = findViewById(R.id.questionView);
+        TxtViewANS = findViewById(R.id.answerView);
         //Identifying buttons
-        card1 = findViewById(R.id.Card_1);
-        card2 = findViewById(R.id.Card_2);
-        card3 = findViewById(R.id.Card_3);
-        card4 = findViewById(R.id.Card_4);
-        card5 = findViewById(R.id.Card_5);
-        card6 = findViewById(R.id.Card_6);
-        card7 = findViewById(R.id.Card_7);
-        card8 = findViewById(R.id.Card_8);
-        card9 = findViewById(R.id.Card_9);
-        card10 = findViewById(R.id.Card_10);
+        BtnCard1 = findViewById(R.id.Card_1);
+        BtnCard2 = findViewById(R.id.Card_2);
+        BtnCard3 = findViewById(R.id.Card_3);
+        BtnCard4 = findViewById(R.id.Card_4);
+        BtnCard5 = findViewById(R.id.Card_5);
+        BtnCard6 = findViewById(R.id.Card_6);
+        BtnCard7 = findViewById(R.id.Card_7);
+        BtnCard8 = findViewById(R.id.Card_8);
+        BtnCard9 = findViewById(R.id.Card_9);
+        BtnCard10 = findViewById(R.id.Card_10);
 
         questionCreator();
 
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public int questionCreator(){
+    public void questionCreator() {
         //Create a list of the operators available
         List<String> operator = new ArrayList<>();
         operator.add(0, "+");
@@ -61,22 +64,29 @@ public class MainActivity extends AppCompatActivity {
         int operatorCode = ThreadLocalRandom.current().nextInt(0, 3 + 1);
         int trueAnswer = 0;
         //Assemble the above into a string to display
-        String holder = Integer.toString(num1)+operator.get(operatorCode)+Integer.toString(num2);
-        //Check the correct answer to the above question
+        String holder = Integer.toString(num1) + operator.get(operatorCode) + Integer.toString(num2);
+        //Check the TRUE answer to the above generated question
         System.out.println(holder);
-        if (operatorCode == 0){
-            trueAnswer = num1 + num2;}
-        else if (operatorCode == 1){
-            trueAnswer = num1 - num2;}
-        else if (operatorCode == 2){
-            trueAnswer = num1 * num2;}
-        else if (operatorCode == 3){
-            trueAnswer = Math.round(num1 / num2);}
-            else
-            System.out.println("impossible question detected");
-        System.out.println(trueAnswer);
-        question.setText(holder);
-        return trueAnswer;
+        if (operatorCode == 0) {
+            trueAnswer = num1 + num2;
+        } else if (operatorCode == 1) {
+            trueAnswer = num1 - num2;
+        } else if (operatorCode == 2) {
+            trueAnswer = num1 * num2;
+        } else if (operatorCode == 3) {
+            trueAnswer = Math.round(num1 / num2);
+        } else {
+            System.out.println("impossible TxtViewQN detected");
+        }
+        //Scramble the question with the Encryption function
+        TxtViewQN.setText(holder);
+        //Recording the question and answer
+        ValQN = holder;
+        ValANS = trueAnswer;
+    }
+
+    public void questionCoder(String holder, int seed) {
+
     }
 
 
