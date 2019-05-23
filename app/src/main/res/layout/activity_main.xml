@@ -36,10 +36,12 @@
         app:srcCompat="@drawable/boxer_neutral"
         tools:srcCompat="@drawable/boxer_neutral" />
 
-    <ImageView
-        android:id="@+id/ImgViewBell"
+    <ImageButton
+        android:id="@+id/BtnBell"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/bell1"
         app:layout_constraintEnd_toEndOf="@+id/ImgViewBG"
         app:layout_constraintStart_toStartOf="@+id/ImgViewBG"
         app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +57,7 @@
         android:layout_marginEnd="32dp"
         android:progressDrawable="@drawable/ic_launcher_background"
         android:progressTint="@color/boxerBlue"
-        app:layout_constraintEnd_toStartOf="@+id/ImgViewBell"
+        app:layout_constraintEnd_toStartOf="@+id/BtnBell"
         app:layout_constraintStart_toStartOf="@+id/ImgViewBG"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +72,7 @@
         android:progressDrawable="@drawable/ic_launcher_background"
         android:progressTint="@color/boxerRed"
         app:layout_constraintEnd_toEndOf="@+id/ImgViewBG"
-        app:layout_constraintStart_toEndOf="@+id/ImgViewBell"
+        app:layout_constraintStart_toEndOf="@+id/BtnBell"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -90,9 +92,9 @@
         android:layout_width="510dp"
         android:layout_height="35dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="_____"
+        android:text="TAP THE BELL TO BEGIN"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/ImgViewCenter"
         app:layout_constraintStart_toStartOf="@+id/ImgViewCenter"
         app:layout_constraintTop_toBottomOf="@+id/TxtViewQN" />
