@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Identifying image views
-        ImgViewBG = findViewById(R.id.BgImg);
-        ImgViewCenter = findViewById(R.id.CenterImg);
+        ImgViewBG = findViewById(R.id.ImgViewBG);
+        ImgViewCenter = findViewById(R.id.ImgViewCenter);
         //Identifying text view
-        TxtViewQN = findViewById(R.id.questionView);
-        TxtViewANS = findViewById(R.id.answerView);
+        TxtViewQN = findViewById(R.id.TxtViewQN);
+        TxtViewANS = findViewById(R.id.TxtViewANS);
         //Identifying buttons
         BtnCard1 = findViewById(R.id.Card_1);
         BtnCard2 = findViewById(R.id.Card_2);
@@ -44,14 +44,18 @@ public class MainActivity extends AppCompatActivity {
         BtnCard9 = findViewById(R.id.Card_9);
         BtnCard10 = findViewById(R.id.Card_10);
 
-        questionCreator();
+        //TODO: start game > generate/show encryption > create/encrypt QN > accept/check ANS
+
+        StartRound();
 
 
     }
 
+    public void StartRound() {
+        QNCreator();
+    }
 
-
-    public void questionCreator() {
+    public void QNCreator() {
         //Create a list of the operators available
         List<String> operator = new ArrayList<>();
         operator.add(0, "+");
