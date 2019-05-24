@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         BtnCard9.setEnabled(false);
         BtnCard10.setEnabled(false);
 
-        //TODO: start game > generate/show encryption > create/encrypt QN > accept/check ANS
         //Give the buttons function
         BtnCard1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {ANSInput("9");}});
         BtnCard10.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {ANSInput("10");}});
+            public void onClick(View v) {ANSInput("0");}});
         BtnBell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {StartRound();}});
@@ -101,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void StartRound() {
-        //Reset remembered Values
-        ValUserANS = "";
+
         //Enables number buttons
         BtnCard1.setEnabled(true);
         BtnCard2.setEnabled(true);
@@ -127,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void QNCreator() {
+        //Reset remembered Values
+        ValUserANS = "";
         //Create a list of the operators available
         List<String> operator = new ArrayList<>();
         operator.add(0, "+");
@@ -173,6 +173,8 @@ public class MainActivity extends AppCompatActivity {
         int error = 0;
         for (int i =0; i <ValUserANS.length(); i++) {
             //If user answer is correct, ANS textview is updated with user input
+            System.out.println(ValUserANS);
+            System.out.println(ValTrueANS);
             if (ValUserANS.charAt(i) == ValTrueANS.charAt(i)) {
                 String blanks = "", holder;
                 while (ValUserANS.length()+blanks.length() < ValTrueANS.length())
@@ -208,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
             else {ImgViewCenter.setImageResource(R.drawable.boxer_redhit1);
                 ImgViewCenterNum = 21;
             }
-            ValUserANS = "";
             QNCreator();
         }
 
