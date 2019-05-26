@@ -1,6 +1,7 @@
 package com.example.assignment2;
 
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton BtnCard6, BtnCard7, BtnCard8, BtnCard9, BtnCard10;
     //Defining Values that need to be remembered
     private String ValQN = "", ValTrueANS = "", ValUserANS = "";
-    private int ImgViewCenterNum = 0;
+    private int ImgViewCenterNum = 0, BellFunc = 1, ValPauseCount = 0;
+    //Defining audio files
+    private MediaPlayer AudBell1, AudBell2, AudBell5, AudHit1, AudHit2, AudHit3, AudHit4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,14 @@ public class MainActivity extends AppCompatActivity {
         BtnCard8 = findViewById(R.id.Card_8);
         BtnCard9 = findViewById(R.id.Card_9);
         BtnCard10 = findViewById(R.id.Card_10);
+        //Identifying sound files
+        AudBell1 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell1);
+        AudBell2 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell2);
+        AudBell5 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell5);
+        AudHit1 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit1);
+        AudHit2 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit2);
+        AudHit3 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit3);
+        AudHit4 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit4);
 
         //Starts the app with the number buttons disabled
         BtnCard1.setEnabled(false);
@@ -60,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         BtnCard9.setEnabled(false);
         BtnCard10.setEnabled(false);
 
-        //Give the buttons function
+        //Give the number buttons function
         BtnCard1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {ANSInput("1");}});
@@ -91,15 +102,39 @@ public class MainActivity extends AppCompatActivity {
         BtnCard10.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {ANSInput("0");}});
+
+        //Give the Bell button multiple functions
         BtnBell.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {StartRound();}});
+            public void onClick(View v) {
+                //Function to start the round
+                if (BellFunc == 1) {
+                    AudBell5.start();
+                    StartRound();
+                    BellFunc = 2;
+                }
+                //Function to pause a match
+                else if (BellFunc == 2) {
+                    AudBell1.start();
+
+                    ValPauseCount += 1;
+                    BellFunc = 3;
+
+                }
+                //Function to resume a match
+                else if (BellFunc == 3) {
+                    AudBell2.start();
+                }
+            }
+        });
 
 
 
     }
 
     public void StartRound() {
+        //Reset round stats
+        ValPauseCount = 0;
 
         //Enables number buttons
         BtnCard1.setEnabled(true);
@@ -118,6 +153,21 @@ public class MainActivity extends AppCompatActivity {
         //Change the ANS field to blanks equal to answer length
         System.out.println(ValQN);
         System.out.println(ValTrueANS);
+    }
+
+    public void PauseRound() {
+
+        //Disables number buttons
+        BtnCard1.setEnabled(false);
+        BtnCard2.setEnabled(false);
+        BtnCard3.setEnabled(false);
+        BtnCard4.setEnabled(false);
+        BtnCard5.setEnabled(false);
+        BtnCard6.setEnabled(false);
+        BtnCard7.setEnabled(false);
+        BtnCard8.setEnabled(false);
+        BtnCard9.setEnabled(false);
+        BtnCard10.setEnabled(false);
     }
 
     public void EncryptionBuild() {
@@ -192,10 +242,12 @@ public class MainActivity extends AppCompatActivity {
             if (ImgViewCenterNum == 11){
                 ImgViewCenter.setImageResource(R.drawable.boxer_bluehit2);
                 ImgViewCenterNum = 12;
+                AudHit1.start();
             }
             else {
                 ImgViewCenter.setImageResource(R.drawable.boxer_bluehit1);
                 ImgViewCenterNum = 11;
+                AudHit2.start();
             }
             if (ValUserANS.equals(ValTrueANS)){
                 QNCreator();
@@ -206,9 +258,11 @@ public class MainActivity extends AppCompatActivity {
             if (ImgViewCenterNum == 21){
                 ImgViewCenter.setImageResource(R.drawable.boxer_redhit2);
                 ImgViewCenterNum = 22;
+                AudHit3.start();
             }
             else {ImgViewCenter.setImageResource(R.drawable.boxer_redhit1);
                 ImgViewCenterNum = 21;
+                AudHit4.start();
             }
             QNCreator();
         }
