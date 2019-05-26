@@ -1,12 +1,12 @@
 package com.example.assignment2;
 
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,14 +16,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MainActivity extends AppCompatActivity {
 
     //Defining UI elements
-    private ImageView ImgViewBG, ImgViewCenter;
-    private TextView TxtViewQN, TxtViewANS;
+    private ProgressBar ProgBarBlue, ProgBarRed;
+    private ImageView ImgViewBG, ImgViewCenter, ImgViewTBox;
+    private TextView TxtViewQN, TxtViewANS, TxtViewTBoxLn1, TxtViewTBoxLn2;
     private ImageButton BtnBell;
     private ImageButton BtnCard1, BtnCard2, BtnCard3, BtnCard4, BtnCard5;
     private ImageButton BtnCard6, BtnCard7, BtnCard8, BtnCard9, BtnCard10;
     //Defining Values that need to be remembered
     private String ValQN = "", ValTrueANS = "", ValUserANS = "";
-    private int ImgViewCenterNum = 0, BellFunc = 1, ValPauseCount = 0;
+    private String EncKey = "", EncLn1 = "", EncLn2 = "";
+    private int ImgViewCenterNum = 0, BellFunc = 1, DMGIncrement = -25;
+    private int ValRoundCount = 0, ValPauseCount = 0, ValQNCount = 0, ValQNCorrectCount;
     //Defining audio files
     private MediaPlayer AudBell1, AudBell2, AudBell5, AudHit1, AudHit2, AudHit3, AudHit4;
 
@@ -32,12 +35,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Identifying progress bars
+        ProgBarBlue = findViewById(R.id.ProgBarBlue);
+        ProgBarRed = findViewById(R.id.ProgBarRed);
         //Identifying image views
         ImgViewBG = findViewById(R.id.ImgViewBG);
         ImgViewCenter = findViewById(R.id.ImgViewCenter);
+        ImgViewTBox = findViewById(R.id.ImgViewTBox);
         //Identifying text view
         TxtViewQN = findViewById(R.id.TxtViewQN);
         TxtViewANS = findViewById(R.id.TxtViewANS);
+        TxtViewTBoxLn1 = findViewById(R.id.TxtViewTBoxLn1);
+        TxtViewTBoxLn2 = findViewById(R.id.TxtViewTBoxLn2);
+
+        //Setting progress bars to full
+        ProgBarBlue.setProgress(100);
+        ProgBarRed.setProgress(100);
+        //Identifying sound files
+        AudBell1 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell1);
+        AudBell2 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell2);
+        AudBell5 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell5);
+        AudHit1 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit1);
+        AudHit2 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit2);
+        AudHit3 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit3);
+        AudHit4 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit4);
         //Identifying buttons
         BtnBell = findViewById(R.id.BtnBell);
         BtnCard1 = findViewById(R.id.Card_1);
@@ -50,14 +71,6 @@ public class MainActivity extends AppCompatActivity {
         BtnCard8 = findViewById(R.id.Card_8);
         BtnCard9 = findViewById(R.id.Card_9);
         BtnCard10 = findViewById(R.id.Card_10);
-        //Identifying sound files
-        AudBell1 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell1);
-        AudBell2 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell2);
-        AudBell5 = MediaPlayer.create(MainActivity.this, R.raw.aud_bell5);
-        AudHit1 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit1);
-        AudHit2 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit2);
-        AudHit3 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit3);
-        AudHit4 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit4);
 
         //Starts the app with the number buttons disabled
         BtnCard1.setEnabled(false);
@@ -70,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         BtnCard8.setEnabled(false);
         BtnCard9.setEnabled(false);
         BtnCard10.setEnabled(false);
-
         //Give the number buttons function
         BtnCard1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,38 +115,50 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {ANSInput("0");}});
 
+        //Create and show starting code
+        EncryptionBuild();
+        TxtViewTBoxLn1.setText(EncLn1);
+        TxtViewTBoxLn2.setText(EncLn2);
+
         //Give the Bell button multiple functions
         BtnBell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Function to start the round
                 if (BellFunc == 1) {
+                    //Play audio to ring bell 5 times and start method to start round
                     AudBell5.start();
-                    StartRound();
+                    RoundStart();
+                    //Record that a round has started and bell now pauses instead of restarts
                     BellFunc = 2;
                 }
                 //Function to pause a match
                 else if (BellFunc == 2) {
+                    //Play audio to ring bell 1 time and start method that pauses game
                     AudBell1.start();
-
+                    RoundPause();
                     ValPauseCount += 1;
+                    //Sets bell function to resume the round
                     BellFunc = 3;
 
                 }
                 //Function to resume a match
                 else if (BellFunc == 3) {
+                    //Play audio to ring bell 2 times and start method that resumes game
                     AudBell2.start();
+                    RoundResume();
+                    //Sets bell function to pause the round
+                    BellFunc = 2;
                 }
             }
         });
-
-
-
     }
 
-    public void StartRound() {
+    public void RoundStart() {
         //Reset round stats
         ValPauseCount = 0;
+        ProgBarBlue.setProgress(100);
+        ProgBarRed.setProgress(100);
 
         //Enables number buttons
         BtnCard1.setEnabled(true);
@@ -147,16 +171,18 @@ public class MainActivity extends AppCompatActivity {
         BtnCard8.setEnabled(true);
         BtnCard9.setEnabled(true);
         BtnCard10.setEnabled(true);
-        //
-        EncryptionBuild();
+
+        //Hide encryption key
+        ImgViewTBox.setVisibility(View.INVISIBLE);
+        TxtViewTBoxLn1.setText("");
+        TxtViewTBoxLn2.setText("");
+
+        //Distributes algebra and generates question
+        if (ValRoundCount > 0) {EncryptionBuild();}
         QNCreator();
-        //Change the ANS field to blanks equal to answer length
-        System.out.println(ValQN);
-        System.out.println(ValTrueANS);
     }
 
-    public void PauseRound() {
-
+    public void RoundPause() {
         //Disables number buttons
         BtnCard1.setEnabled(false);
         BtnCard2.setEnabled(false);
@@ -168,15 +194,97 @@ public class MainActivity extends AppCompatActivity {
         BtnCard8.setEnabled(false);
         BtnCard9.setEnabled(false);
         BtnCard10.setEnabled(false);
+        //Show Encryption
+        ImgViewTBox.setVisibility(View.VISIBLE);
+        TxtViewTBoxLn1.setText(EncLn1);
+        TxtViewTBoxLn2.setText(EncLn2);
     }
 
-    public void EncryptionBuild() {
+    public void RoundResume() {
+        //Enables number buttons
+        BtnCard1.setEnabled(true);
+        BtnCard2.setEnabled(true);
+        BtnCard3.setEnabled(true);
+        BtnCard4.setEnabled(true);
+        BtnCard5.setEnabled(true);
+        BtnCard6.setEnabled(true);
+        BtnCard7.setEnabled(true);
+        BtnCard8.setEnabled(true);
+        BtnCard9.setEnabled(true);
+        BtnCard10.setEnabled(true);
+        //Hide encryption
+        ImgViewTBox.setVisibility(View.INVISIBLE);
+        TxtViewTBoxLn1.setText("");
+        TxtViewTBoxLn2.setText("");
 
+    }
+
+    public void RoundEnd() {
+        //Play audio to ring bell 5 times
+        AudBell5.start();
+        //Disables number buttons
+        BtnCard1.setEnabled(false);
+        BtnCard2.setEnabled(false);
+        BtnCard3.setEnabled(false);
+        BtnCard4.setEnabled(false);
+        BtnCard5.setEnabled(false);
+        BtnCard6.setEnabled(false);
+        BtnCard7.setEnabled(false);
+        BtnCard8.setEnabled(false);
+        BtnCard9.setEnabled(false);
+        BtnCard10.setEnabled(false);
+        //Set bell to start new round
+        BellFunc = 1;
+        //Show round stats
+        ImgViewTBox.setVisibility(View.VISIBLE);
+        String holder = "Pauses : " + ValPauseCount;
+        TxtViewTBoxLn1.setText(holder);
+        holder = "W/L : " + ValQNCorrectCount + "/" + (ValQNCount - ValQNCorrectCount);
+        TxtViewTBoxLn2.setText(holder);
+    }
+
+
+    public void EncryptionBuild() {
+        //Create a loop to generate a 10-digit number as the encryption key
+        for (int i =0; i <10; i++){
+            int num = ThreadLocalRandom.current().nextInt(0, 9+1);
+            while (EncKey.contains(Integer.toString(num)))
+                num = ThreadLocalRandom.current().nextInt(0, 9+1);
+            EncKey = EncKey + Integer.toString(num);
+            //E.g. a key of 1234... will mean A=1,B=2,C=3 etc.
+        }
+        EncLn1 = "A="+EncKey.charAt(0)+" B="+EncKey.charAt(1)+" C="+EncKey.charAt(2)+" D="+EncKey.charAt(3)+" E="+EncKey.charAt(4);
+        EncLn2 = "F="+EncKey.charAt(5)+" G="+EncKey.charAt(6)+" H="+EncKey.charAt(7)+" I="+EncKey.charAt(8)+" J="+EncKey.charAt(9);
+    }
+
+    public void EncryptionParse() {
+        try {ValQN = ValQN.replace(Integer.toString(1),"A");}
+        catch (Exception e) {System.out.println("No 1's");}
+        try {ValQN = ValQN.replace(Integer.toString(2),"B");}
+        catch (Exception e) {System.out.println("No 2's");}
+        try {ValQN = ValQN.replace(Integer.toString(3),"C");}
+        catch (Exception e) {System.out.println("No 3's");}
+        try {ValQN = ValQN.replace(Integer.toString(4),"D");}
+        catch (Exception e) {System.out.println("No 4's");}
+        try {ValQN = ValQN.replace(Integer.toString(5),"E");}
+        catch (Exception e) {System.out.println("No 5's");}
+        try {ValQN = ValQN.replace(Integer.toString(6),"F");}
+        catch (Exception e) {System.out.println("No 6's");}
+        try {ValQN = ValQN.replace(Integer.toString(7),"G");}
+        catch (Exception e) {System.out.println("No 7's");}
+        try {ValQN = ValQN.replace(Integer.toString(8),"H");}
+        catch (Exception e) {System.out.println("No 8's");}
+        try {ValQN = ValQN.replace(Integer.toString(9),"I");}
+        catch (Exception e) {System.out.println("No 9's");}
+        try {ValQN = ValQN.replace(Integer.toString(0),"J");}
+        catch (Exception e) {System.out.println("No 0's");}
+        TxtViewQN.setText(ValQN);
     }
 
     public void QNCreator() {
-        //Reset remembered Values
+        //Reset remembered Values and count a new question
         ValUserANS = "";
+        ValQNCount += 1;
         //Create a list of the operators available
         List<String> operator = new ArrayList<>();
         operator.add(0, "+");
@@ -199,14 +307,12 @@ public class MainActivity extends AppCompatActivity {
             trueAnswer = num1 * num2;
         } else if (operatorCode == 3) {
             trueAnswer = Math.round(num1 / num2);
-        } else {
-            System.out.println("impossible TxtViewQN detected");
         }
-        //Scramble the question with the Encryption function
-        TxtViewQN.setText(holder);
         //Recording the question and answer
         ValQN = holder;
         ValTrueANS = Integer.toString(trueAnswer);
+        //Scramble the question with the Encryption function
+        EncryptionParse();
         //Set the ANS TextView to blanks
         String blanks = "_";
         while (blanks.length() < ValTrueANS.length())
@@ -223,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
         int error = 0;
         for (int i =0; i <ValUserANS.length(); i++) {
             //If user answer is correct, ANS textview is updated with user input
-            System.out.println(ValUserANS);
-            System.out.println(ValTrueANS);
             if (ValUserANS.charAt(i) == ValTrueANS.charAt(i)) {
                 String blanks = "", holder;
                 while (ValUserANS.length()+blanks.length() < ValTrueANS.length())
@@ -237,8 +341,9 @@ public class MainActivity extends AppCompatActivity {
             //if an error is detected it is flagged
             else {error = 1;}
         }
-        //Changes center image of a boxer being hit depending on answer
+        //Changes center image of a boxer being hit and updating Progress bar depending on answer
         if (error == 0 ) {
+            ProgBarRed.incrementProgressBy(DMGIncrement);
             if (ImgViewCenterNum == 11){
                 ImgViewCenter.setImageResource(R.drawable.boxer_bluehit2);
                 ImgViewCenterNum = 12;
@@ -250,11 +355,16 @@ public class MainActivity extends AppCompatActivity {
                 AudHit2.start();
             }
             if (ValUserANS.equals(ValTrueANS)){
+                ValQNCorrectCount += 1;
                 QNCreator();
+            }
+            if (ProgBarRed.getProgress() == 0) {
+                RoundEnd();
             }
 
         }
         else {
+            ProgBarBlue.incrementProgressBy(DMGIncrement);
             if (ImgViewCenterNum == 21){
                 ImgViewCenter.setImageResource(R.drawable.boxer_redhit2);
                 ImgViewCenterNum = 22;
@@ -265,13 +375,10 @@ public class MainActivity extends AppCompatActivity {
                 AudHit4.start();
             }
             QNCreator();
+            if (ProgBarBlue.getProgress() == 0) {
+                RoundEnd();
+            }
         }
 
     }
-
-    public void questionCoder(String holder, int seed) {
-
-    }
-
-
 }

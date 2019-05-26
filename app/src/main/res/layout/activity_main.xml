@@ -49,13 +49,14 @@
 
     <ProgressBar
         android:id="@+id/ProgBarBlue"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="0dp"
-        android:layout_height="27dp"
+        android:layout_height="25dp"
         android:layout_marginStart="85dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:progressDrawable="@drawable/ic_launcher_background"
+        android:indeterminate="false"
+        android:progress="100"
         android:progressTint="@color/boxerBlue"
         app:layout_constraintEnd_toStartOf="@+id/BtnBell"
         app:layout_constraintStart_toStartOf="@+id/ImgViewBG"
@@ -63,13 +64,14 @@
 
     <ProgressBar
         android:id="@+id/ProgBarRed"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="0dp"
-        android:layout_height="27dp"
+        android:layout_height="25dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="85dp"
-        android:progressDrawable="@drawable/ic_launcher_background"
+        android:indeterminate="false"
+        android:progress="100"
         android:progressTint="@color/boxerRed"
         app:layout_constraintEnd_toEndOf="@+id/ImgViewBG"
         app:layout_constraintStart_toEndOf="@+id/BtnBell"
@@ -98,6 +100,46 @@
         app:layout_constraintEnd_toEndOf="@+id/ImgViewCenter"
         app:layout_constraintStart_toStartOf="@+id/ImgViewCenter"
         app:layout_constraintTop_toBottomOf="@+id/TxtViewQN" />
+
+    <ImageView
+        android:id="@+id/ImgViewTBox"
+        android:layout_width="450dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/Anchor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ImgViewCenter"
+        app:srcCompat="@drawable/textbox1"
+        tools:srcCompat="@drawable/textbox1" />
+
+    <TextView
+        android:id="@+id/TxtViewTBoxLn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="12345678901234567890"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/ImgViewTBox"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/ImgViewTBox"
+        app:layout_constraintTop_toTopOf="@+id/ImgViewTBox" />
+
+    <TextView
+        android:id="@+id/TxtViewTBoxLn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="12345678901234567890"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/ImgViewTBox"
+        app:layout_constraintEnd_toEndOf="@+id/ImgViewTBox"
+        app:layout_constraintStart_toStartOf="@+id/ImgViewTBox" />
 
     <ImageButton
         android:id="@+id/Card_1"
@@ -149,7 +191,7 @@
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ImgViewBG"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/Anchor"
         app:srcCompat="@drawable/card_5"
         tools:srcCompat="@drawable/card_5" />
 
@@ -159,7 +201,7 @@
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/ImgViewBG"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/Anchor"
         app:srcCompat="@drawable/card_6"
         tools:srcCompat="@drawable/card_6" />
 
@@ -208,7 +250,7 @@
         tools:srcCompat="@drawable/card_0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Anchor"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="45dp"
         android:layout_height="35dp"
