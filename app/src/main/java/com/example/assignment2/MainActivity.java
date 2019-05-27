@@ -296,11 +296,13 @@ public class MainActivity extends AppCompatActivity {
         operator.add(0, "+");
         operator.add(1, "-");
         operator.add(2, "x");
+        //Note: division is currently disabled due to excess difficulty.
+        //To re-enable, un-comment relevant code and change operator code random range below to 3+1.
         operator.add(3, "/");
         //Randomly select a 2 digit number, an operator from above table, and a 1 digit number
         int num1 = ThreadLocalRandom.current().nextInt(10, 99 + 1);
         int num2 = ThreadLocalRandom.current().nextInt(1, 9 + 1);
-        int operatorCode = ThreadLocalRandom.current().nextInt(0, 3 + 1);
+        int operatorCode = ThreadLocalRandom.current().nextInt(0, 2 + 1);
         int trueAnswer = 0;
         //Assemble the above into a string to display
         String holder = Integer.toString(num1) + operator.get(operatorCode) + Integer.toString(num2);
@@ -311,9 +313,12 @@ public class MainActivity extends AppCompatActivity {
             trueAnswer = num1 - num2;
         } else if (operatorCode == 2) {
             trueAnswer = num1 * num2;
-        } else if (operatorCode == 3) {
-            trueAnswer = Math.round(num1 / num2);
         }
+        //Below is code for division questions, commented out due to excess difficulty,
+        // left in as proof of work
+        /* else if (operatorCode == 3) {
+            trueAnswer = Math.round(num1 / num2);
+        } */
         //Recording the question and answer
         ValQN = holder;
         ValTrueANS = Integer.toString(trueAnswer);
