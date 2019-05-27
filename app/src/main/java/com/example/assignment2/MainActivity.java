@@ -159,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         ValPauseCount = 0;
         ProgBarBlue.setProgress(100);
         ProgBarRed.setProgress(100);
+        //Reset boxer image
+        ImgViewCenter.setImageResource(R.drawable.boxer_neutral);
 
         //Enables number buttons
         BtnCard1.setEnabled(true);
