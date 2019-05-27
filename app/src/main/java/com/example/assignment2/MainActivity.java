@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private int ValRoundCount = 0, ValPauseCount = 0, ValQNCount = 0, ValQNCorrectCount;
     //Defining audio files
     private MediaPlayer AudBell1, AudBell2, AudBell5, AudHit1, AudHit2, AudHit3, AudHit4;
+    private MediaPlayer AudCheer, AudBoo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         AudHit2 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit2);
         AudHit3 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit3);
         AudHit4 = MediaPlayer.create(MainActivity.this, R.raw.aud_boxerhit4);
+        AudCheer = MediaPlayer.create(MainActivity.this,R.raw.aud_cheering);
+        AudBoo = MediaPlayer.create(MainActivity.this,R.raw.aud_booing);
         //Identifying buttons
         BtnBell = findViewById(R.id.BtnBell);
         BtnCard1 = findViewById(R.id.Card_1);
@@ -364,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
                 ValQNCorrectCount += 1;
                 //Check if match is won, if not, start a new question
                 if (ProgBarRed.getProgress() == 0) {
+                    AudCheer.start();
                     RoundEnd();
                 } else {
                     QNCreator();
@@ -383,6 +387,7 @@ public class MainActivity extends AppCompatActivity {
             }
             //Check if match is lost, if not, start a new question
             if (ProgBarBlue.getProgress() == 0) {
+                AudBoo.start();
                 RoundEnd();
             } else {
                 QNCreator();
