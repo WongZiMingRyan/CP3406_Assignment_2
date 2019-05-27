@@ -359,14 +359,16 @@ public class MainActivity extends AppCompatActivity {
                 ImgViewCenterNum = 11;
                 AudHit2.start();
             }
+            //If whole answer is correct, add to the correct answer count
             if (ValUserANS.equals(ValTrueANS)){
                 ValQNCorrectCount += 1;
-                QNCreator();
+                //Check if match is won, if not, start a new question
+                if (ProgBarRed.getProgress() == 0) {
+                    RoundEnd();
+                } else {
+                    QNCreator();
+                }
             }
-            if (ProgBarRed.getProgress() == 0) {
-                RoundEnd();
-            }
-
         }
         else {
             ProgBarBlue.incrementProgressBy(DMGIncrement);
@@ -379,9 +381,11 @@ public class MainActivity extends AppCompatActivity {
                 ImgViewCenterNum = 21;
                 AudHit4.start();
             }
-            QNCreator();
+            //Check if match is lost, if not, start a new question
             if (ProgBarBlue.getProgress() == 0) {
                 RoundEnd();
+            } else {
+                QNCreator();
             }
         }
 
