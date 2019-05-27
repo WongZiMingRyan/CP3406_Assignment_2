@@ -260,25 +260,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void EncryptionParse() {
-        try {ValQN = ValQN.replace(Integer.toString(1),"A");}
+        System.out.println(EncKey);
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(0)),"A");}
         catch (Exception e) {System.out.println("No 1's");}
-        try {ValQN = ValQN.replace(Integer.toString(2),"B");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(1)),"B");}
         catch (Exception e) {System.out.println("No 2's");}
-        try {ValQN = ValQN.replace(Integer.toString(3),"C");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(2)),"C");}
         catch (Exception e) {System.out.println("No 3's");}
-        try {ValQN = ValQN.replace(Integer.toString(4),"D");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(3)),"D");}
         catch (Exception e) {System.out.println("No 4's");}
-        try {ValQN = ValQN.replace(Integer.toString(5),"E");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(4)),"E");}
         catch (Exception e) {System.out.println("No 5's");}
-        try {ValQN = ValQN.replace(Integer.toString(6),"F");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(5)),"F");}
         catch (Exception e) {System.out.println("No 6's");}
-        try {ValQN = ValQN.replace(Integer.toString(7),"G");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(6)),"G");}
         catch (Exception e) {System.out.println("No 7's");}
-        try {ValQN = ValQN.replace(Integer.toString(8),"H");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(7)),"H");}
         catch (Exception e) {System.out.println("No 8's");}
-        try {ValQN = ValQN.replace(Integer.toString(9),"I");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(8)),"I");}
         catch (Exception e) {System.out.println("No 9's");}
-        try {ValQN = ValQN.replace(Integer.toString(0),"J");}
+        try {ValQN = ValQN.replace(Character.toString(EncKey.charAt(9)),"J");}
         catch (Exception e) {System.out.println("No 0's");}
         TxtViewQN.setText(ValQN);
     }
@@ -314,6 +315,8 @@ public class MainActivity extends AppCompatActivity {
         ValQN = holder;
         ValTrueANS = Integer.toString(trueAnswer);
         //Scramble the question with the Encryption function
+        System.out.println(ValQN);
+        System.out.println(ValTrueANS);
         EncryptionParse();
         //Set the ANS TextView to blanks
         String blanks = "_";
